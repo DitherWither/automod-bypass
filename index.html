@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord Automod Bypasser</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body
+    class="bg-gray-100 text-gray-900 font-sans antialiased flex flex-col items-center justify-center min-h-screen"
+  >
+    <div
+      class="bg-white shadow-md rounded-lg p-6 max-w-md w-full flex flex-col gap-3"
+    >
+      <h1 class="text-3xl text-center">Secret Discord Automod Bypasser</h1>
+      <p>This tool is designed to help you bypass Discord's automod system.</p>
+      <p>
+        It uses unicode lookalikes to bypass automod in a way that isn't
+        noticible
+      </p>
+
+      <h2 class="text-3xl text-center">Usage Instructions</h2>
+      <ol class="list-decimal list-inside mb-4">
+        <li>Enter the text you want to bypass in the input field below.</li>
+        <li>The bypassed text will be displayed below.</li>
+      </ol>
+
+      <input
+        type="text"
+        id="inputText"
+        placeholder="Enter text to bypass"
+        class="bg-gray-100 rounded-lg border border-gray-300 p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <p
+        id="outputText"
+        class="mt-4 p-2 bg-gray-50 border border-gray-300 rounded-lg"
+      >
+        Bypassed text will appear here.
+      </p>
+    </div>
+    <script>
+      document
+        .getElementById("inputText")
+        .addEventListener("input", function () {
+          const input = this.value;
+          const output = bypassAutomod(input);
+          document.getElementById("outputText").textContent = output;
+
+          if (output === input) {
+            document.getElementById("outputText").textContent =
+              "Could not bypass automod.";
+          }
+
+          if (input.trim() === "") {
+            document.getElementById("outputText").textContent =
+              "Bypassed text will appear here.";
+          }
+        });
+
+      function bypassAutomod(text) {
+        // Simple bypass logic: replace certain words with alternatives
+        return text
+          .replace("a", "а")
+          .replace("c", "с")
+          .replace("d", "ԁ")
+          .replace("e", "е")
+          .replace("h", "һ")
+          .replace("i", "і")
+          .replace("j", "ј")
+          .replace("l", "ӏ")
+          .replace("n", "ո")
+          .replace("o", "о")
+          .replace("p", "р")
+          .replace("s", "ѕ")
+          .replace("s", "ս")
+          .replace("v", "ν")
+          .replace("w", "ω")
+          .replace("x", "х")
+          .replace("y", "у");
+      }
+    </script>
+  </body>
+</html>
