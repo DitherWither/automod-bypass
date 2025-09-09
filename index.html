@@ -4,81 +4,134 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Discord Automod Bypasser</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body
-    class="bg-gray-100 text-gray-900 font-sans antialiased flex flex-col items-center justify-center min-h-screen"
+    class="bg-[#313338] text-[#dbdee1] font-sans antialiased min-h-screen flex items-center justify-center"
   >
     <div
-      class="bg-white shadow-md rounded-lg p-6 max-w-md w-full flex flex-col gap-3"
+      class="bg-[#2b2d31] shadow-2xl rounded-2xl p-8 max-w-lg w-full flex flex-col gap-6 border border-[#232428]"
     >
-      <h1 class="text-3xl text-center">Secret Discord Automod Bypasser</h1>
-      <p>This tool is designed to help you bypass Discord's automod system.</p>
-      <p>
-        It uses unicode lookalikes to bypass automod in a way that isn't
-        noticible
-      </p>
-
-      <h2 class="text-3xl text-center">Usage Instructions</h2>
-      <ol class="list-decimal list-inside mb-4">
-        <li>Enter the text you want to bypass in the input field below.</li>
-        <li>The bypassed text will be displayed below.</li>
-      </ol>
-
-      <input
-        type="text"
-        id="inputText"
-        placeholder="Enter text to bypass"
-        class="bg-gray-100 rounded-lg border border-gray-300 p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-
-      <p
-        id="outputText"
-        class="mt-4 p-2 bg-gray-50 border border-gray-300 rounded-lg"
+      <div class="flex items-center gap-3 mb-2">
+        <h1 class="text-2xl font-bold tracking-tight text-[#f2f3f5]">
+          Automod Bypasser
+        </h1>
+      </div>
+      <div
+        class="bg-[#232428] rounded-lg p-4 text-[#b5bac1] text-sm shadow-inner"
       >
-        Bypassed text will appear here.
-      </p>
+        <p class="mb-1">Bypass Discord's automod using unicode lookalikes</p>
+        <p class="text-xs text-[#949ba4]">
+          Invisible to most users, but readable in chat.
+        </p>
+      </div>
+      <div>
+        <label for="inputText" class="block text-[#b5bac1] font-semibold mb-2"
+          >Input</label
+        >
+        <textarea
+          id="inputText"
+          placeholder="Enter text to bypass..."
+          class="bg-[#383a40] text-[#f2f3f5] rounded-lg border border-[#232428] p-3 w-full focus:outline-none focus:ring-2 focus:ring-[#5865f2] min-h-[3.5rem] max-h-60 overflow-y-auto resize-none placeholder-[#949ba4] transition"
+          style="transition: height 0.2s"
+        ></textarea>
+        <div class="flex items-center gap-2 mt-3">
+          <input
+            type="checkbox"
+            id="wvCheckbox"
+            class="w-4 h-4 rounded border-2 border-[#5865f2] bg-[#232428] checked:bg-[#5865f2] checked:border-[#5865f2] focus:ring-2 focus:ring-[#5865f2] transition-colors duration-150"
+            style="appearance: none; accent-color: #5865f2"
+            checked
+          />
+          <span class="relative flex items-center">
+            <label
+              for="wvCheckbox"
+              class="text-xs text-[#f2b132] select-none cursor-pointer"
+            >
+              Replace <span class="font-mono">w</span> and
+              <span class="font-mono">v</span> (noticeable to users)
+            </label>
+          </span>
+        </div>
+        <div class="text-xs text-[#f2b132] mt-1 ml-6">
+          <span>Warning: These replacements are more obvious in chat.</span>
+        </div>
+      </div>
+      <div>
+        <label class="block text-[#b5bac1] font-semibold mb-2"
+          >Bypassed Output</label
+        >
+        <pre
+          id="outputText"
+          class="p-3 bg-[#232428] border border-[#232428] rounded-lg whitespace-pre-wrap break-words font-mono text-[#f2f3f5] min-h-[3rem] shadow-inner"
+        >
+Bypassed text will appear here.</pre
+        >
+      </div>
+      <div class="text-xs text-[#949ba4] text-center mt-2">
+        <span
+          >Made with <span class="text-[#5865f2]">&#10084;&#65039;</span> by
+          InvisBaka</span
+        >
+      </div>
     </div>
     <script>
-      document
-        .getElementById("inputText")
-        .addEventListener("input", function () {
-          const input = this.value;
-          const output = bypassAutomod(input);
-          document.getElementById("outputText").textContent = output;
+      const inputText = document.getElementById("inputText");
+      const wvCheckbox = document.getElementById("wvCheckbox");
+      const outputEl = document.getElementById("outputText");
 
-          if (output === input) {
-            document.getElementById("outputText").textContent =
-              "Could not bypass automod.";
-          }
-
-          if (input.trim() === "") {
-            document.getElementById("outputText").textContent =
-              "Bypassed text will appear here.";
-          }
-        });
-
-      function bypassAutomod(text) {
-        // Simple bypass logic: replace certain words with alternatives
-        return text
-          .replace("a", "а")
-          .replace("c", "с")
-          .replace("d", "ԁ")
-          .replace("e", "е")
-          .replace("h", "һ")
-          .replace("i", "і")
-          .replace("j", "ј")
-          .replace("l", "ӏ")
-          .replace("n", "ո")
-          .replace("o", "о")
-          .replace("p", "р")
-          .replace("s", "ѕ")
-          .replace("s", "ս")
-          .replace("v", "ν")
-          .replace("w", "ω")
-          .replace("x", "х")
-          .replace("y", "у");
+      function bypassAutomod(text, allowWV = true) {
+        const charMap = {
+          a: "а",
+          c: "с",
+          d: "ԁ",
+          e: "е",
+          h: "һ",
+          i: "і",
+          j: "ј",
+          l: "ӏ",
+          n: "ո",
+          o: "о",
+          p: "р",
+          s: "ѕ",
+          x: "х",
+          y: "у",
+        };
+        if (allowWV) {
+          charMap["v"] = "ν";
+          charMap["w"] = "ω";
+        }
+        return Array.from(text)
+          .map((char) => charMap[char.toLowerCase()] || char)
+          .join("");
       }
+
+      function updateOutput() {
+        const input = inputText.value;
+        const allowWV = wvCheckbox.checked;
+        const output = bypassAutomod(input, allowWV);
+        if (input.trim() === "") {
+          outputEl.textContent = "Bypassed text will appear here.";
+        } else if (output === input) {
+          outputEl.textContent = "Could not bypass automod.";
+        } else {
+          outputEl.textContent = output;
+        }
+      }
+
+      // Auto-expand textarea height
+      function autoExpandTextarea() {
+        this.style.height = "auto";
+        this.style.height = this.scrollHeight + "px";
+      }
+      inputText.addEventListener("input", function (e) {
+        autoExpandTextarea.call(this);
+        updateOutput();
+      });
+      // Initial expansion
+      autoExpandTextarea.call(inputText);
+
+      wvCheckbox.addEventListener("change", updateOutput);
     </script>
   </body>
 </html>
